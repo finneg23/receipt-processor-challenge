@@ -1,5 +1,40 @@
-# Receipt Processor
 
+
+# Connor's notes to the reviewer
+
+### How did I build this?
+I started with a Spring Boot initialzr tool and made a simple Spring Boot application. I then applied two thirds of the MVC design theory and built model and controller packages (services as well). I then started by making sure the HTTP requests could in fact be made by using Postman while the application is running.
+
+I then set up the UUID generation for when a receipt object is POSTed and storing that into a HashMap for fast retrieval.
+
+I then built a helper method in the services that tallied up all the points for a given receipt object and added that to a separate map.
+
+I then set up the GET request to look in the map for that UUID and respond with the corresponding points. I manually tested all the pts tracking and edge cases and am confident the pts are calculated correctly.
+
+### How can you run this?
+
+I used Java to build this (and an old version at that). You should be able to open this in Intellij from its pom.xml where the necessary dependencies are already in place.
+
+If there are any issues or questions, please contact me at connorfinneganb@gmail.com.
+
+This was a great challenge and was fun practice! I liked being able to apply real-world context to a back-end project.
+
+
+
+
+
+
+
+
+*********************************
+
+
+
+
+
+
+
+# Receipt Processor
 Build a webservice that fulfils the documented API. The API is described below. A formal definition is provided 
 in the [api.yml](./api.yml) file, but the information in this README is sufficient for completion of this challenge. We will use the 
 described API to test your solution.
@@ -172,3 +207,6 @@ the reviewing engineer.
 ### How long do I have to complete the exercise?
 There is no time limit for the exercise. Out of respect for your time, we designed this exercise with the intent that it should take you a few hours. But, please
 take as much time as you need to complete the work.
+
+
+
