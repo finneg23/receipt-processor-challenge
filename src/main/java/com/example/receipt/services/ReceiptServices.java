@@ -44,11 +44,11 @@ public class ReceiptServices {
         //add the length to the pts
         pts += retailerSplit.length();
         //initialize a BD version of the string total
-        BigDecimal total = new BigDecimal(receipt.getTotal());
+        BigDecimal total = new BigDecimal(receipt.getTotal()).setScale(2, RoundingMode.HALF_UP);
         //if the number is whole, give 50 pts, if it could be divided by a quarter, give 25 pts, else give 0 pts
-        if (total.remainder(BigDecimal.ONE).equals(BigDecimal.ZERO)) {
+        if (total.remainder(BigDecimal.ONE.setScale(2, RoundingMode.HALF_UP)).equals(BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP))) {
             pts += 50;
-        } else if (total.remainder(BigDecimal.valueOf(0.25)).equals(BigDecimal.ZERO)) {
+        } else if (total.remainder(BigDecimal.valueOf(0.25).setScale(2, RoundingMode.HALF_UP)).equals(BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP))) {
             pts += 25;
         }
         //check to see if the list is even big enough to consider
