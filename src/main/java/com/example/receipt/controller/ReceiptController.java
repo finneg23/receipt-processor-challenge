@@ -1,25 +1,37 @@
 package com.example.receipt.controller;
 
 import com.example.receipt.model.Receipt;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.receipt.services.ReceiptServices;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @RestController
 public class ReceiptController {
-@GetMapping("/testing")
-    public String helloWorld() {
-    return "hello, world!";
+    @Autowired
+    private ReceiptServices receiptServices;
+@GetMapping("/receipts")
+    public Map<String, Receipt> getAllReceipts() {
+    return receiptServices.getAllReceipts();
 }
 
 @PostMapping("/receipts/process")
     public String processReceipt(@Valid @RequestBody Receipt receipt) {
-    return null;
+   return receiptServices.processReceipt(receipt);
 }
+
+@GetMapping("/receipts/{id}/points")
+    public int getPoints(@Valid @PathVariable String id) {
+    return receiptServices.getPoints(id);
 }
+
+}
+
+
 
 
 /*
