@@ -2,8 +2,11 @@ package com.example.receipt.controller;
 
 import com.example.receipt.model.Receipt;
 import com.example.receipt.services.ReceiptServices;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -19,6 +22,7 @@ public class ReceiptController {
     return receiptServices.getAllReceipts();
 }
 
+@ResponseStatus(HttpStatus.CREATED)
 @PostMapping("/receipts/process")
     public String processReceipt(@Valid @RequestBody Receipt receipt) {
    return receiptServices.processReceipt(receipt);
@@ -26,7 +30,11 @@ public class ReceiptController {
 
 @GetMapping("/receipts/{id}/points")
     public int getPoints(@Valid @PathVariable String id) {
-    return receiptServices.getPoints(id);
+    try {
+        return receiptServices.getPoints(id);
+    } catch (Exception e) {
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This receipt could not be found");
+    }
 }
 
 }
